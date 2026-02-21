@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amir Play Store</title>
+
+<style>
+body{margin:0;font-family:'Segoe UI',sans-serif;background:#f1f3f4;transition:.3s}
+.dark{background:#121212;color:white}
+header{background:#0f9d58;color:white;padding:15px;text-align:center;font-size:20px;position:relative}
+.toggle-dark{position:absolute;right:15px;top:15px;background:white;color:#0f9d58;padding:5px 10px;border-radius:15px;cursor:pointer}
+.top-bar{text-align:center;padding:10px}
+input{padding:8px;width:60%;border-radius:20px;border:1px solid #ccc}
+.categories{text-align:center;margin:10px}
+.categories button{margin:5px;padding:6px 12px;border:none;border-radius:15px;background:#0f9d58;color:white;cursor:pointer}
+.container{padding:15px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
+.card{background:white;border-radius:15px;padding:10px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.dark .card{background:#1e1e1e}
+.card img{width:80px;height:80px;border-radius:20px}
+.download{background:#0f9d58;color:white;padding:6px 12px;border-radius:20px;text-decoration:none;font-size:13px;display:inline-block;margin-top:6px}
+.ad-box{margin:20px;padding:15px;text-align:center;border-radius:10px;background:#ddd}
+.dark .ad-box{background:#333}
+.section-title{text-align:center;margin-top:20px;font-weight:bold}
+</style>
+</head>
+<body>
+
+<header>
+Amir Play Store
+<span class="toggle-dark" onclick="toggleDark()">Dark</span>
+</header>
+
+<div class="top-bar">
+<input type="text" id="search" placeholder="Search apps..." onkeyup="displayApps()">
+</div>
+
+<div class="categories">
+<button onclick="filterCategory('All')">All</button>
+<button onclick="filterCategory('Game')">Games</button>
+<button onclick="filterCategory('Social')">Social</button>
+<button onclick="filterCategory('Tools')">Tools</button>
+</div>
+
+<!-- 🔥 Banner Ad -->
+<div class="ad-box">
+<script type="text/javascript">
+atOptions = {
+'key' : 'YOUR-ADSTERRA-KEY',
+'format' : 'iframe',
+'height' : 250,
+'width' : 300,
+'params' : {}
+};
+</script>
+<script type="text/javascript" src="//YOUR-ADSTERRA-BANNER.js"></script>
+</div>
+
+<div class="section-title">📱 Apps</div>
+<div class="container" id="appList"></div>
+
+<script>
+let currentCategory="All";
+let apps=[
+{name:"My Game",category:"Game",icon:"https://via.placeholder.com/100",file:"apps/game.apk"},
+{name:"WhatsApp Mod",category:"Social",icon:"https://via.placeholder.com/100",file:"apps/whatsapp.apk"},
+{name:"Flash Tool",category:"Tools",icon:"https://via.placeholder.com/100",file:"apps/tool.apk"}
+];
+
+function toggleDark(){
+document.body.classList.toggle("dark");
+}
+
+function filterCategory(cat){
+currentCategory=cat;
+displayApps();
+}
+
+function displayApps(){
+let list=document.getElementById("appList");
+let search=document.getElementById("search").value.toLowerCase();
+list.innerHTML="";
+apps.forEach(app=>{
+if((currentCategory==="All"||app.category===currentCategory)
+&& app.name.toLowerCase().includes(search)){
+list.innerHTML+=`
+<div class="card">
+<img src="${app.icon}">
+<h4>${app.name}</h4>
+<p>${app.category}</p>
+<a href="${app.file}" download onclick="triggerAd()" class="download">Download</a>
+</div>`;
+}
+});
+}
+
+function triggerAd(){
+window.open("https://YOUR-ADSTERRA-DIRECT-LINK.com");
+}
+
+displayApps();
+</script>
+
+<!-- 🔥 Popunder Ad -->
+<script type='text/javascript' src='//YOUR-ADSTERRA-POPUNDER.js'></script>
+
+</body>
+</html>
